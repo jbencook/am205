@@ -1,16 +1,18 @@
-##############################################
+#################################################################################
 ## This program cleans Netflix data and writes
 ## it to a CSV file.
 ## 
-## Usage: python clean_data.py <path to movies> <number of movies to load>
+## Usage: python data-cleaning.py <path to movies> <number of movies to load>
 ## 
-## Note:  to load all the movies in the directory use 'all' for number
-##        for number of movies. e.g.
+## Notes: - to load all the movies in the directory use 'all' for number
+##          for number of movies. e.g.
 ##       
-##        python clean_data.py download/training_set all
-##
-## 
-##############################################
+##          python data-cleaning.py download/training_set all
+##			
+##		  - you can find the Netflix data here:
+##          
+##          
+#################################################################################
 
 import numpy as np
 import pandas as pd
