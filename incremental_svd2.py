@@ -61,4 +61,11 @@ if __name__ == '__main__':
 	pred = test_perf(train, test, u, s, v)
 	print np.sqrt(mean_squared_error(pred,test[:,2]))
 
+	#X \approx np.dot(np.dot(u,s),v)
+	#To test orthogonality:
+	A = np.dot(np.dot(u,s),v)
+
+	#Not standard:
+	print np.linalg.norm(np.dot(A,A.T) - np.identity(A.shape[0]))
+
 
