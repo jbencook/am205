@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.io import mmread
-from sklearn.metric import mean_squared_error
+from sklearn.metrics import mean_squared_error
 
 
 def cf_recommend(X, k, num_rows=6, test_size=.1):
@@ -56,10 +56,10 @@ def test_rec(X, testset, uk, sk, vk):
 
 if __name__ == '__main__':
     #Usage:
-    data = mmread('subset.mtx').todense()
+    data = np.asarray(mmread('subset.mtx').todense())
 
     uk, sk, vk, testset = cf_recommend(data, 10, 2000)
     testset = test_rec(data, testset, uk, sk, vk)
 
     ndces = ~np.isnan(testset[:, 3])
-    np.sqrt(mean_squared_error(testset[ndces, 2], testset[ndces, 3]))
+    print np.sqrt(mean_squared_error(testset[ndces, 2], testset[ndces, 3]))
