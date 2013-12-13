@@ -1,49 +1,50 @@
-#################################################################################
-## This program cleans Netflix data and writes
-## it to a CSV file.
-## 
-## Usage: python data-cleaning.py <path to movies> <number of movies to load>
-## 
-## Notes: - to load all the movies in the directory use 'all' for number
-##          for number of movies. e.g.
-##       
-##          python data-cleaning.py download/training_set all
-##			
-##		  - you can find the Netflix data here:
-##          
-##          
-#################################################################################
-
 import numpy as np
+from scipy.io import mmwrite
+from scipy.sparse import lil_matrix
 import pandas as pd
 import os
 from sys import argv
 
-#if __name__ == 'main':
-path = argv[1]
-num_movies = argv[2]
+'''
+This program cleans Netflix data and writes it to a CSV file.
 
-if num_movies == 'all':
-	files = os.listdir(path)
-else:
-	files = os.listdir(path)[:int(num_movies)]
+Usage: python data-cleaning.py <path to movies> <number of movies to load>
+'''
 
-data = {}
+def get_user_dict(fname):
+	f = open(fname, 'r')
+	user_dict = {}
+	for line in f:
+		i,id = line.strip().split(',')
+		user_dict[id] = int(i)
+	f.close()
+	return user_dict
 
-ct = 0
-for f in files:
-	if ct % 100 == 0:
-		print ct
-	infile = open('%s/%s' % (path, f), 'r')
-	movie = infile.readline().strip()[:-1]
-	data[movie] = {}
-	for line in infile:
-		user,rating,_ = line.split(',')
-		data[movie][user] = rating
-	infile.close()
-	ct += 1
+if __name__ == '__main__':
+	path       = argv[1]
+	num_movies = argv[2]
+	#user_file  = argv[3]
+	user_file = 'user_ids.csv'
 
-outfile = 'data_%s.csv' % num_movies
-pd.DataFrame(data).to_csv(outfile)
+	if num_movies == 'all':
+		files = os.listdir(path)
+	else:
+		files = os.listdir(path)[:int(num_movies)]
 
+	users = get_user_dict(user_file)
+	data  = lil_matrix((len(users), len(files)))
 
+	ct = 0
+	for f in files:
+		if ct % 100 == 0:
+			print ct
+		infile = open('%s/%s' % (path, f), 'r')
+		j = int(infile.readline().strip()[:-1]) - 1 #Move number
+		for line in infile:
+			id,rating,_ = line.split(',')
+			i = users[id]
+			data[i,j] = int(rating)
+		infile.close()
+		ct += 1
+
+	mmwrite('ratings_matrix', data)
