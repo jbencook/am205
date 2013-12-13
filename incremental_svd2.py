@@ -36,15 +36,28 @@ def incremental_SVD(X, k, num, by_row=True):
 			vkk[:,vk.shape[1]] = pp
 			vk = vkk
 
-	return uk, sk, vk		
+	return uk, sk, vk
+
+def test_perf(X, test, uk, sk, vk):
+    r = np.zeros(X.shape[0], dtype=np.float32)
+    
+    for i in xrange(len(r)):
+        r[i] = np.mean(X[i,np.argwhere(X[i,:] != 0)])
+    
+    prediction = np.zeros(test.shape[0])
+    for n in xrange(test.shape[0]):
+        i,j = test[i,:2].astype(np.int32)
+        prediction[n] = r[i] + np.dot(np.dot(uk,np.sqrt(sk).T)[i,:], np.dot(np.sqrt(sk),vk)[:,j])
+        
+    return prediction
 
 if __name__ == '__main__':
-	data = np.asarray(mmread('subset.mtx').todense())
+	train = np.asarray(mmread('subset_train.mtx').todense())
+	test  = np.loadtxt('subset_test.txt')
 
-	data = data[:2000,:500]
+	u,s,v = incremental_SVD(train, 6, 100, by_row=True)
 
-	u,s,v = incremental_SVD(data, 6, 100, by_row=False)
+	pred = test_perf(train, test, u, s, v)
+	print np.mean(pred)
 
-	print u.shape
-	print s.shape
-	print v.shape
+
