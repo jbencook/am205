@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.io import mmread, mmwrite
+from sklearn.metrics import mean_squared_error
 import scipy.sparse.linalg as sla
 import pandas as pd
 import os
@@ -58,6 +59,6 @@ if __name__ == '__main__':
 	u,s,v = incremental_SVD(train, 6, 100, by_row=True)
 
 	pred = test_perf(train, test, u, s, v)
-	print np.mean(pred)
+	print np.sqrt(mean_squared_error(pred,test[:,2]))
 
 
