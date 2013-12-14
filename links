@@ -14,3 +14,12 @@ http://blog.revolutionanalytics.com/2011/05/the-neflix-prize-big-data-svd-and-r.
 
 #Sarwar incremental SVD:
 http://files.grouplens.org/papers/sarwar_SVD.pdf
+
+#Presentation:
+https://www.fer.hr/_download/repository/Dimensionality_Reduction_in_Recommender_Systems.pdf
+
+#SVD Applied to Collaborative Filtering:
+http://www.slideshare.net/bmabey/svd-and-the-netflix-dataset-presentation
+
+#Dimensionality Reduction and the Singular Value Decomposition:
+http://www.cs.carleton.edu/cs_comps/0607/recommend/recommender/svd.html
