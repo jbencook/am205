@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  14 DEC 2013 08:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  14 DEC 2013 10:05
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -177,8 +177,7 @@ LaTeX Info: Redefining \] on input line 2666.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/comment/comment.sty
 \CommentStream=\write3
 
-Excluding comment 'comment')
-No file merity_cook.aux.
+Excluding comment 'comment') (./merity_cook.aux)
 \openout1 = `merity_cook.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
@@ -194,6 +193,7 @@ LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
 LaTeX Font Info:    ... okay on input line 33.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 33.
+
 (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
@@ -262,27 +262,47 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 35.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 37.
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 57.
 
-No file merity_cook.bbl.
+(/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+)
+
+Package natbib Warning: Citation `revoR' on page 1 undefined on input line 69.
+
 [1
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-(./merity_cook.aux) ) 
+
+Package natbib Warning: Citation `recipes2007' on page 2 undefined on input lin
+e 101.
+
+No file merity_cook.bbl.
+
+Package natbib Warning: There were undefined citations.
+
+[2] (./merity_cook.aux) ) 
 Here is how much of TeX's memory you used:
- 3295 strings out of 493315
- 43797 string characters out of 6137904
- 111133 words of memory out of 5000000
- 6708 multiletter control sequences out of 15000+600000
- 12122 words of font info for 27 fonts, out of 8000000 for 9000
+ 3347 strings out of 493315
+ 44494 string characters out of 6137904
+ 114133 words of memory out of 5000000
+ 6747 multiletter control sequences out of 15000+600000
+ 17340 words of font info for 37 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,8n,39p,233b,160s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8
-r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on merity_cook.pdf (1 page, 27843 bytes).
+ 38i,8n,39p,324b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/ba
+se/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+bx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr1
+0.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
+.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/t
+exlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/201
+3/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on merity_cook.pdf (2 pages, 87027 bytes).
 PDF statistics:
- 17 PDF objects out of 1000 (max. 8388607)
- 11 compressed objects within 1 object stream
+ 44 PDF objects out of 1000 (max. 8388607)
+ 31 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
