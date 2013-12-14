@@ -3,6 +3,7 @@ from __future__ import division
 import numpy as np
 import scipy.linalg
 from prettyplotlib import plt
+#import matplotlib.pyplot as plt
 from scipy.io import mmread
 from sklearn.metrics import mean_squared_error
 ##
@@ -42,7 +43,7 @@ if __name__ == '__main__':
     svdY.append(err)
     orthoX.append(k)
     orthoY.append(check_orthogonality(u))
-  plt.plot(svdX, svdY, label="SVD", color='black', linewidth='2', linestyle='--')
+  plt.plot(svdX, svdY, label="SVD", color='black', linewidth=2, linestyle='--')
 
   print
   print 'Testing incremental SVD'
@@ -57,7 +58,7 @@ if __name__ == '__main__':
       u, s, vT = incremental_SVD(train, k, num)
       reconstruct = u.dot(s.dot(vT))
       X.append(k)
-      Y.append(mean_squared_error(train, reconstruct))
+      Y.append(np.sqrt(mean_squared_error(train, reconstruct)))
       incr_orthoY.append(check_orthogonality(u))
     incr_ortho.append(['iSVD n={}'.format(num), X, incr_orthoY])
     plt.plot(X, Y, label='iSVD n={}'.format(num))
@@ -79,12 +80,13 @@ if __name__ == '__main__':
   plt.savefig('reconstruct_error_{}x{}.pdf'.format(*train.shape))
   plt.show(block=True)
   ##
-  plt.plot(svdX, svdY, label="SVD", color='black', linewidth='2', linestyle='--')
+  plt.plot(svdX, svdY, label="SVD", color='black', linewidth=2, linestyle='--')
   for label, X, Y in incr_ortho:
     plt.plot(X, Y, label=label)
   plt.title('SVD orthogonality error on {}x{} matrix'.format(*train.shape))
   plt.xlabel('Low rank approximation')
   plt.ylabel('Orthogonality error')
+  plt.semilogy()
   #plt.ylim(0, max(orthoY))
   plt.legend(loc='best')
   plt.savefig('reconstruct_ortho_{}x{}.pdf'.format(*train.shape))

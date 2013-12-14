@@ -186,6 +186,49 @@ Next, we asses the `accuracy' of our approximation of $\A$, $\|\A - \A_k\|_{\tex
 Finally, in full SVD, the columns of $\mathbf{U}$ are orthonormal, meaning $\mathbf{U}\mathbf{U}^{\T} = \mathbb{I}_m$. 
 We assess the deviation from orthonormality by computing $\|\mathbf{U}\mathbf{U}^{\T} - \mathbb{I}_m\|_{\textrm{F}}$.
 
+Figure \ref{fig:error_small} shows 
+
+\begin{figure}[H]
+\begin{center}
+%\framebox[4.0in]{$\;$}
+\fbox{\includegraphics[width=.7\textwidth]{../images/reconstruct_error_2000x100}}
+%\fbox{\includegraphics{../scatter_results}}
+\end{center}
+\caption{This is a caption}
+\label{fig:error_small}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+%\framebox[4.0in]{$\;$}
+\fbox{\includegraphics[width=.7\textwidth]{../images/reconstruct_error_2000x1000}}
+%\fbox{\includegraphics{../scatter_results}}
+\end{center}
+\caption{This is a caption}
+\label{fig:error_medium}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+%\framebox[4.0in]{$\;$}
+\fbox{\includegraphics[width=.7\textwidth]{../images/reconstruct_ortho_2000x100}}
+%\fbox{\includegraphics{../scatter_results}}
+\end{center}
+\caption{This is a caption}
+\label{fig:ortho_small}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+%\framebox[4.0in]{$\;$}
+\fbox{\includegraphics[width=.7\textwidth]{../images/reconstruct_ortho_2000x1000}}
+%\fbox{\includegraphics{../scatter_results}}
+\end{center}
+\caption{This is a caption}
+\label{fig:ortho_mediume}
+\end{figure}
+
+
 \section{Discussion}
 This is a discussion of how well we did.
 
@@ -197,14 +240,3 @@ In conlusion, this paper was awesome. Cheers.
 
 \end{document}
 
-\begin{comment}
-\begin{figure}[H]
-\begin{center}
-%\framebox[4.0in]{$\;$}
-\fbox{\includegraphics[width=.9\textwidth]{scatter_results}}
-%\fbox{\includegraphics{../scatter_results}}
-\end{center}
-\caption{Performance of the edge weight inference algorithm for a graph with $|V| = 100$ and $|E|= 348$}
-\label{fig:scatter1}
-\end{figure}
-\end{comment}
