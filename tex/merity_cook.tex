@@ -5,7 +5,7 @@
 \usepackage{url}
 \usepackage{float}
 \usepackage{graphicx}
-\usepackage{amsmath}
+\usepackage{amsmath, amssymb}
 \usepackage{comment}
 %\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
 
@@ -103,13 +103,13 @@ First, without dimensionality reduction, machine learning tasks would be computa
 
 \subsection{SVD}
 
-As with other matrix factorization techniques, SVD works by decomposing a matrix, $\A \in \mathcal{R}^{m \times n}$, where $m \geq n$ and 
+As with other matrix factorization techniques, SVD works by decomposing a matrix, $\A \in \mathbb{R}^{m \times n}$, where $m \geq n$ and 
 $\textrm{rank}(\A) = r$, 
 into separate matrices whose product is $\A$:
 $$\A = \mathbf{U}\mathbf{S}\mathbf{V}^{\T}$$
-Here, $\mathbf{U} \in \mathcal{R}^{m \times r}$, is composed of the eigenvectors of $\A\A^{\T}$, or left-singular vectors of $\A$, 
-$\mathbf{S} \in \mathcal{R}^{r \times r}$ is a diagonal matrix whose elements are the $r$ singular values of $\A$,
-and $\mathbf{V}^{\T} \in \mathcal{R}^{r \times n}$ is composed of the
+Here, $\mathbf{U} \in \mathbb{R}^{m \times r}$, is composed of the eigenvectors of $\A\A^{\T}$, or left-singular vectors of $\A$, 
+$\mathbf{S} \in \mathbb{R}^{r \times r}$ is a diagonal matrix whose elements are the $r$ singular values of $\A$,
+and $\mathbf{V}^{\T} \in \mathbb{R}^{r \times n}$ is composed of the
 eigenvectors of $\A^{\T}\A$, or right-singular vectors of $\A$
 \cite{golub1970}.
 Furthermore, the rows and columns of $\mathbf{U}$, $\mathbf{S}$, and $\mathbf{V}^{\T}$ are sorted in such a way that the largest singular values occur in the upper left most corner of $\mathbf{S}$.
@@ -172,13 +172,19 @@ For example, to estimate the rating that user $i$ would give movie $j$, we simpl
 $$P_{i,j} = \bar{r}_i + \mathbf{U}\sqrt{\mathbf{S}_k}^{\T}[i,:]
 \cdot \sqrt{\mathbf{S}_k}\mathbf{V}_k^{\T}[:,j]$$
 
-where $\bar{r}_i$ is the row mean of the non-zero elements of $\A$  \cite{Sardward}.
+where $\bar{r}_i$ is the row mean of the non-zero elements of $\A$  \cite{sarwar2002}.
 
 \section{Results}
 
 %Explain how we tested predictions
 %Explain how we tested orthonormality
-These are our results. They are pretty darn good.
+We evaluate incremental SVD in three ways. 
+First, we hold out a test set of ratings and use our recommender system to predict what they should be.
+Let the vector of user ratings in the test set be $y$, one indication of 
+the performance of incremental SVD is relative error, $\frac{\|y - \hat{y}\|_2}{\|y\|_2}$, where $\hat{y}$ is the vector of predictions for the ratings in the test set.
+Next, we asses the `accuracy' of our approximation of $\A$, $\|\A - \A_k\|_{\textrm{F}}$ where $\A_k$ is constructed from $\mathbf{U}_k$ that is built with folding-in.
+Finally, in full SVD, the columns of $\mathbf{U}$ are orthonormal, meaning $\mathbf{U}\mathbf{U}^{\T} = \mathbb{I}_m$. 
+We assess the deviation from orthonormality by computing $\|\mathbf{U}\mathbf{U}^{\T} - \mathbb{I}_m\|_{\textrm{F}}$.
 
 \section{Discussion}
 This is a discussion of how well we did.
