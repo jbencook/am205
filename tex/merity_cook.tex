@@ -148,18 +148,31 @@ $$\A_k= \mathbf{U}_k\mathbf{S}_k\mathbf{V}_k^{\T}$$
 \begin{align*}
 &c = \A[i,:]\\
 &c^{\prime} = c \mathbf{V}_k \mathbf{S}_k^{-1}\\
-&\textrm{Append $c^{\prime}$ to $\mathbf{U}_k$}
+&\textrm{Append $c^{\prime}$ to the bottom of $\mathbf{U}_k$}
 \end{align*}
-
-
 \end{enumerate}
 
+In order to fold-in movies instead of users, we replace the parameter $u$ with $v$, the number of movies to begin with. Then step one becomes:
+
+$$\textrm{SVD}(\A[:,1:v]) = \mathbf{U}\mathbf{S}\mathbf{V}^{\T}$$
+
+And for step three, we repeat the following for $j$ in $v+1$ to $n$:
+
+\begin{align*}
+&p = \A[:,j]\\
+&p^{\prime} = p^{\T}\mathbf{U}_k\mathbf{S}_k^{-1}\\
+&\textrm{Append $p^{\prime}$ to the right side of $\mathbf{V}_k^{\T}$}
+\end{align*}
+
 \subsection{Predicting ratings}
+
 In order to predict ratings that have not been observed, 
 
-\subsection{Testing predictions}
 
 \section{Results}
+
+%Explain how we tested predictions
+%Explain how we tested orthonormality
 These are our results. They are pretty darn good.
 
 \begin{comment}
