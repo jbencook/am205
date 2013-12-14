@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.io import mmread
+<<<<<<< Updated upstream
 from sklearn.metric import mean_squared_error
 
 
@@ -14,6 +15,21 @@ def cf_recommend(X, k, num_rows=6, test_size=.1):
     test_size is the proportion of ratings
     to hold out as a test set
     '''
+=======
+import argv
+
+def cf_recommend(X,k,num_rows=6,test_size=.1):
+	'''
+	This function performs incremental SVD on X.
+	Note: 
+
+	k is the number of singular values
+	num_rows is the number of rows on which 
+	to do full SVD
+	test_size is the proportion of ratings
+	to hold out as a test set
+	'''
+>>>>>>> Stashed changes
 
     IJ = np.argwhere(X != 0)
     holdout = np.random.randint(0, len(IJ), np.round(len(IJ) * test_size))
@@ -55,11 +71,19 @@ def test_rec(X, testset, uk, sk, vk):
     return testset
 
 if __name__ == '__main__':
+<<<<<<< Updated upstream
     #Usage:
     data = mmread('subset.mtx').todense()
 
     uk, sk, vk, testset = cf_recommend(data, 10, 2000)
     testset = test_rec(data, testset, uk, sk, vk)
+=======
+	#Usage:
+	infile = sys.argv[1]
+	data = mmread(infile).todense()
+	uk,sk,vk,testset = cf_recommend(data,10,2000)
+	testset = test_rec(data, testset, uk, sk, vk)
+>>>>>>> Stashed changes
 
     ndces = ~np.isnan(testset[:, 3])
     np.sqrt(mean_squared_error(testset[ndces, 2], testset[ndces, 3]))
