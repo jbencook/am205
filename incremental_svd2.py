@@ -49,23 +49,37 @@ def test_perf(X, test, uk, sk, vk):
 
     prediction = np.zeros(test.shape[0])
     for n in xrange(test.shape[0]):
-        i, j = test[i, :2].astype(np.int32)
+        i, j = test[n, :2] - 1
         prediction[n] = r[i] + np.dot(np.dot(uk, np.sqrt(sk).T)[i, :], np.dot(np.sqrt(sk), vk)[:, j])
 
     return prediction
 
+def get_error(k,u,train,test):
+  U,S,V = incremental_SVD(train, k, u, by_row=True)
+  pred = test_perf(train, test, U,S,V)
+  ndx = ~np.isnan(pred)
+  rmse = np.sqrt(mean_squared_error(pred[ndx], test[ndx,2]))
+  ortho = np.linalg.norm(U.dot(U.T) - np.identity(U.shape[0]))
+  return rmse,ortho
+
 if __name__ == '__main__':
   train = np.asarray(mmread('subset_train.mtx').todense())
-  test  = np.loadtxt('subset_test.txt')
+  test  = np.loadtxt('subset_test.txt', dtype=np.int32)
 
-  u, s, v = incremental_SVD(train, 6, 100, by_row=True)
+  K = range(5,35)
+  nums = [100,200,500,1000,2000]
 
-  pred = test_perf(train, test, u, s, v)
-  print np.sqrt(mean_squared_error(pred, test[:, 2]))
 
-  #X \approx np.dot(np.dot(u,s),v)
-  #To test orthogonality:
-  A = np.dot(np.dot(u, s), v)
+  for u in nums:
+    RMSE = []
+    ORTHO = []
+    for k in K:
+      rmse,ortho = get_error(k,u,train,test)
+      RMSE.append(rmse)
+      ORTHO.append(ortho)
 
-  #Not standard:
-  print np.linalg.norm(np.dot(A, A.T) - np.identity(A.shape[0]))
+    plt.plot(K,RMSE)
+    plt.plot(K,ORTHO)
+
+
+

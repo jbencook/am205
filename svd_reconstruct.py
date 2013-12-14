@@ -35,7 +35,7 @@ if __name__ == '__main__':
   for k in xrange(1, 100):
     low_s = [s[i] for i in xrange(k)] + (min(u.shape[0], vT.shape[1]) - k) * [0]
     reconstruct = u.dot(scipy.linalg.diagsvd(low_s, u.shape[0], vT.shape[1]).dot(vT))
-    err = mean_squared_error(train, reconstruct)
+    err = np.sqrt(mean_squared_error(train, reconstruct))
     print 'Exact SVD with low-rank approximation {}'.format(k)
     #print err
     #print
@@ -60,8 +60,8 @@ if __name__ == '__main__':
       X.append(k)
       Y.append(np.sqrt(mean_squared_error(train, reconstruct)))
       incr_orthoY.append(check_orthogonality(u))
-    incr_ortho.append(['iSVD n={}'.format(num), X, incr_orthoY])
-    plt.plot(X, Y, label='iSVD n={}'.format(num))
+    incr_ortho.append(['iSVD u={}'.format(num), X, incr_orthoY])
+    plt.plot(X, Y, label='iSVD u={}'.format(num))
   """
   print 'Testing raw SVD => exact reconstruction'
   svT = scipy.linalg.diagsvd(s, u.shape[0], vT.shape[1]).dot(vT)
@@ -73,8 +73,8 @@ if __name__ == '__main__':
   """
   ##
   plt.title('SVD reconstruction error on {}x{} matrix'.format(*train.shape))
-  plt.xlabel('Low rank approximation')
-  plt.ylabel('Mean Squared Error')
+  plt.xlabel('Low rank approximation (k)')
+  plt.ylabel('Root Mean Squared Error')
   plt.ylim(0, max(svdY))
   plt.legend(loc='best')
   plt.savefig('reconstruct_error_{}x{}.pdf'.format(*train.shape))
@@ -84,7 +84,7 @@ if __name__ == '__main__':
   for label, X, Y in incr_ortho:
     plt.plot(X, Y, label=label)
   plt.title('SVD orthogonality error on {}x{} matrix'.format(*train.shape))
-  plt.xlabel('Low rank approximation')
+  plt.xlabel('Low rank approximation (k)')
   plt.ylabel('Orthogonality error')
   plt.semilogy()
   #plt.ylim(0, max(orthoY))
