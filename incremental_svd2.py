@@ -79,7 +79,10 @@ if __name__ == '__main__':
       ORTHO.append(ortho)
 
     plt.plot(K,RMSE)
+    plt.show()
     plt.plot(K,ORTHO)
+    plt.show()
+
 
 
 
