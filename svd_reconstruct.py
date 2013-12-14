@@ -43,7 +43,7 @@ if __name__ == '__main__':
     svdY.append(err)
     orthoX.append(k)
     orthoY.append(check_orthogonality(u))
-  plt.plot(svdX, svdY, label="SVD", color='black', linewidth=2, linestyle='--')
+  plt.plot(svdX, svdY, label="SVD", color='black', linewidth='2', linestyle='--')
 
   print
   print 'Testing incremental SVD'
@@ -80,7 +80,7 @@ if __name__ == '__main__':
   plt.savefig('reconstruct_error_{}x{}.pdf'.format(*train.shape))
   plt.show(block=True)
   ##
-  plt.plot(svdX, svdY, label="SVD", color='black', linewidth=2, linestyle='--')
+  plt.plot(svdX, svdY, label="SVD", color='black', linewidth='2', linestyle='--')
   for label, X, Y in incr_ortho:
     plt.plot(X, Y, label=label)
   plt.title('SVD orthogonality error on {}x{} matrix'.format(*train.shape))

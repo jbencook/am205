@@ -58,6 +58,7 @@ def get_error(k,u,train,test):
   U,S,V = incremental_SVD(train, k, u, by_row=True)
   pred = test_perf(train, test, U,S,V)
   ndx = ~np.isnan(pred)
+  print np.sum(np.isnan(pred))
   rmse = np.sqrt(mean_squared_error(pred[ndx], test[ndx,2]))
   ortho = np.linalg.norm(U.dot(U.T) - np.identity(U.shape[0]))
   return rmse,ortho
@@ -66,22 +67,28 @@ if __name__ == '__main__':
   train = np.asarray(mmread('subset_train.mtx').todense())
   test  = np.loadtxt('subset_test.txt', dtype=np.int32)
 
-  K = range(5,35)
+  num = 0
+  for i in xrange(train.shape[0]):
+    if np.all(train[i,:] == 0):
+      num += 1
+  print 'all zeros', num
+
+  K = range(3,15)
   nums = [100,200,500,1000,2000]
 
+  RMSE = np.zeros((len(nums), len(K)))
+  ORTHO = np.zeros((len(nums), len(K)))
 
-  for u in nums:
-    RMSE = []
-    ORTHO = []
-    for k in K:
+
+  for i,u in enumerate(nums):
+    for j,k in enumerate(K):
       rmse,ortho = get_error(k,u,train,test)
-      RMSE.append(rmse)
-      ORTHO.append(ortho)
+      RMSE[i,j] = rmse
+      ORTHO[i,j] = ortho
 
-    plt.plot(K,RMSE)
-    plt.show()
-    plt.plot(K,ORTHO)
-    plt.show()
+
+  np.savetxt('RMSE.txt', RMSE)
+  np.savetxt('ORTHO.txt', ORTHO)
 
 
 
