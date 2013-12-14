@@ -27,6 +27,8 @@ J. Benjamin Cook
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
+\newcommand{\A}{\mathbf{A}}
+\newcommand{\T}{\textrm{T}}
 
 \nipsfinalcopy % Uncomment for camera-ready version
 
@@ -94,11 +96,26 @@ The reasons for decreasing the dimensionality of the dataset are two-fold.
 First, without dimensionality reduction, machine learning tasks would be computationally intractable and second, reducing the dimensionality actually allows us to predict ratings more effectively, since our dataset is so sparse.
 
 \subsection{SVD}
-As with other matrix factorization techniques, SVD works by decomposing a matrix, $\mathbf{A}$ into separate matrices whose product is $\mathbf{A}$:
-$$\textrm{SVD}(\mathbf{A}) = \mathbf{U}\mathbf{S}\mathbf{V}^{\textrm{T}}$$
-where $\mathbf{U}$ is blank, $\mathbf{S}$ is blank, and $\mathbf{V}$ is blank \cite{golub1970}.
+As with other matrix factorization techniques, SVD works by decomposing a matrix, $\A \in \mathcal{R}^{m \times n}$, where $m \geq n$ and 
+$\textrm{rank}(\A) = r$, 
+into separate matrices whose product is $\A$:
+$$\A = \mathbf{U}\mathbf{S}\mathbf{V}^{\T}$$
+Here, $\mathbf{U} \in \mathcal{R}^{m \times r}$, is composed of the eigenvectors of $\A\A^{\T}$, 
+$\mathbf{S} \in \mathcal{R}^{r \times r}$ is a diagonal matrix whose elements are the $r$ singular values of $\A$,
+and $\mathbf{V}^{\T} \in \mathcal{R}^{r \times n}$ is composed of the
+eigenvectors of $\A^{\T}\A$ \cite{golub1970}.
+Furthermore, the rows and columns of $\mathbf{U}$, $\mathbf{S}$, and $\mathbf{V}^{\T}$ are sorted in such a way that the largest singular values occur in the upper left most corner of $\mathbf{S}$.
+This means that we can achieve a low-rank approximation to $\A$ by considering taking only the $k$ first singular values.
 
-Although we did try to implement SVD from scratch following the alogrithm laid out in \cite{recipes2007}, it quickly became clear that implementing SVD from scratch was beyond the scope of this project.
+\begin{align*}
+	\A &\approx \A_k\\
+	&= \mathbf{U}_k\mathbf{S}_k\mathbf{V}_k^{\T}\\
+	&= \mathbf{U}[:,1:k]\mathbf{S}[1:k,1:k]\mathbf{V}[1:k,:]^{\T}
+\end{align*}
+
+This approximation $\A_k$ is the rank $k$ matrix that minimizes the Frobenius norm: $\|\A - \A_k\|_{\textrm{F}}$.
+
+Although we attempted to implement the full SVD algorithm following the recipe laid out in \cite{recipes2007}, it quickly became clear that implementing SVD from scratch was beyond the scope of this project.
 
 \subsection{Predicting Ratings}
 
