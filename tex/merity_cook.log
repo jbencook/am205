@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 DEC 2013 15:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 DEC 2013 16:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -321,7 +321,7 @@ File: ../images/ortho_3000x1000.png Graphic file (type png)
 Package pdftex.def Info: ../images/ortho_3000x1000.png used on input line 233.
 (pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
  (./merity_cook.bbl
-Underfull \vbox (badness 1253) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [5 <../images/rmse_3000x1000.png> <../images/ortho_3000x1000.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 40--45
@@ -352,7 +352,7 @@ r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 cal/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/tex
 mf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on merity_cook.pdf (6 pages, 234259 bytes).
+Output written on merity_cook.pdf (6 pages, 234394 bytes).
 PDF statistics:
  85 PDF objects out of 1000 (max. 8388607)
  58 compressed objects within 1 object stream
