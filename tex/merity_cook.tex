@@ -9,7 +9,7 @@
 \usepackage{comment}
 %\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
 
-\title{Predicting user ratings with incremental SVD}
+\title{Incremental SVD for large-scale recommendation algorithms}
 
 \author{
 Stephen Merity
@@ -37,12 +37,35 @@ J. Benjamin Cook
 \maketitle
 
 \begin{abstract}
-Hello, World. This is an abstract.
+The singular value decomposition (SVD) is fundamental to many machine learning algorithms, primarily being used for dimensionality reduction.
+Unfortunately, SVD algorithms typically have quadratic complexity and require random access to the complete data set, making them impractical for many real world tasks.
+We investigate the convergence properties of incremental singular value decomposition (SVD) which does not require the complete data set to be stored in memory.
+We then compare this with traditional SVD algorithms to see the impact on memory usage, speed of convergence, and orthogonality of the resulting SVD.
+To motivate incremental SVD in the context of machine learning, we construct a recommendation system and show the performance of SVD compared to incremental SVD, showing the potential to incrementally build SVD-based models and produce a highly scalable recommendation system.
 \end{abstract}
 
 \section{Introduction}
 
-In this section, we give an introduction to our incremental SVD paper.
+Recommendation systems aim to recommend an item to interested potential customers, tailoring the choice of item based upon both that customer's history and the history of the all users.
+The items recommended can be divserse, including movies, music, web pages, or other general products.
+These systems have evolved from novelties to vital tools that are re-shaping the world of e-commerce.
+By learning from both the customer and the broader community as to which items should be recommended to someone, these successful recommendations can lead to substantial improvements in both revenue and customer satisfaction \citep{schafer1999recommender}.
+
+Within recommendation systems, there are two primary types: \textit{content-based} recommenders and \textit{collaborative filtering} recommenders.
+Content-based approaches analyze the content, such as the text, metadata, or features of an item, to identify related items.
+A known successful realization of content-based recommendation is music recommendation on services such as Pandora or Spotify.
+Hundreds of features are created for each song, either manually or automatically.
+These features aim to capture the significant characteristics of the piece of music, allowing recommendations for a user either explicitly through their own preferences (the user stating they like jazz) or implicitly through the user's past behaviour.
+
+An alternative approach, which is content agnostic, is collaborative filtering.
+Collaborative filtering analyzes the relationships between user choices within a given community to make recommendations.
+A major appeal of this method is that it is domain free and does not need any information about the item being recommended.
+Though it does suffer from the \textit{cold start} problem\footnote{The \textit{cold start} problem refers to the issue of making recommendations before a large enough history of user behaviour is available.}, given large amounts of user history, collaborative filtering is the most popular method for recommendation systems.
+Collaborative filtering is widely deployed across the Internet, seeing specific popularity after the introduction of the Netflix prize competition in 2006.
+
+\fix{Explain matrix factorization methods in terms of collaborative filtering.}
+
+In this paper, we give an introduction to collaborative filtering on large datasets using incremental SVD.
 
 \section{Data}
 
@@ -94,7 +117,7 @@ Finally, because the process of implementing our incremental SVD system was iter
 
 \section{Method}
 
-In the context of recommender systems, the main task of Singular Value Decomposition (SVD) is to decrease the dimensionality of the dataset.
+In the context of recommendation systems, the main task of Singular Value Decomposition (SVD) is to decrease the dimensionality of the dataset.
 We need to be able to summarize the key characteristics of a movie in a much smaller number of features, or variables, than the total number of users in the system.
 Similarly, we need to reduce the key preferences of users to something much smaller than the total number of movies in the database.
 The reasons for decreasing the dimensionality of the dataset are two-fold.
@@ -132,7 +155,7 @@ On the Netflix training dataset with 480,179 users, this is on the order of $10^
 Fortunately, a technique called folding-in allows us to compute SVD on a subset of users (or movies) and then add users (movies) incrementally.
 
 This approximation of $\A$ becomes worse as we fold-in more and more users, and we lose orthonormality.
-In the context of recommender systems, however, the loss of orthonormality is not necessarily a core concern.
+In the context of recommendation systems, however, the loss of orthonormality is not necessarily a core concern.
 The approximation produced by the incremental SVD algorithm performs well enough to predict user ratings to within a tolerable amount of error, especially as the exact initial values are already unknown.
 Additionally, each user can be folded-in in $O(1)$ time, meaning it is suddenly possible to approximate SVD of the whole matrix on a laptop.
 
@@ -179,7 +202,7 @@ where $\bar{r}_i$ is the row mean of the non-zero elements of $\A$ \citep{sarwar
 %Explain how we tested predictions
 %Explain how we tested orthonormality
 We evaluate incremental SVD in three ways.
-First, we hold out a test set of ratings and use our recommender system to predict what they should be.
+First, we hold out a test set of ratings and use our recommendation system to predict what they should be.
 Let the vector of user ratings in the test set be $y$, one indication of
 the performance of incremental SVD is relative error, $\frac{\|y - \hat{y}\|_2}{\|y\|_2}$, where $\hat{y}$ is the vector of predictions for the ratings in the test set.
 Next, we assess the `accuracy' of our approximation of $\A$, $\|\A - \A_k\|_{\textrm{F}}$ where $\A_k$ is constructed from $\mathbf{U}_k$ that is built with folding-in.
