@@ -1,0 +1,46 @@
+\begin{thebibliography}{6}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Antulov-Fantulin(2011)]{slides}
+Nino Antulov-Fantulin.
+\newblock {Application of Dimensionality Reduction (SVD) in Collaborative
+  Filtering}, 2011.
+
+\bibitem[Golub and Reinsch(1970)]{golub1970}
+Gene~H Golub and Christian Reinsch.
+\newblock Singular value decomposition and least squares solutions.
+\newblock \emph{Numerische Mathematik}, 14\penalty0 (5):\penalty0 403--420,
+  1970.
+
+\bibitem[Press(2007)]{recipes2007}
+William~H Press.
+\newblock \emph{{Numerical recipes 3rd edition: The art of scientific
+  computing}}.
+\newblock {Cambridge University Press}, 2007.
+
+\bibitem[Sarwar et~al.(2002)Sarwar, Karypis, Konstan, and Riedl]{sarwar2002}
+Badrul Sarwar, George Karypis, Joseph Konstan, and John Riedl.
+\newblock {Incremental singular value decomposition algorithms for highly
+  scalable recommender systems}.
+\newblock In \emph{Fifth International Conference on Computer and Information
+  Science}, pages 27--28. Citeseer, 2002.
+
+\bibitem[Schafer et~al.(1999)Schafer, Konstan, and
+  Riedi]{schafer1999recommender}
+J~Ben Schafer, Joseph Konstan, and John Riedi.
+\newblock {Recommender systems in e-commerce}.
+\newblock In \emph{Proceedings of the 1st ACM conference on Electronic
+  commerce}, pages 158--166. ACM, 1999.
+
+\bibitem[Smith(2011)]{revoR}
+David Smith.
+\newblock {The Netflix Prize, Big Data, SVD and R}.
+\newblock
+  http://blog.revolutionanalytics.com/2011/05/the-neflix-prize-big-data-svd-and-r.html,
+  2011.
+
+\end{thebibliography}
