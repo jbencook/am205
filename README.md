@@ -3,7 +3,7 @@ am205
 
 Incremental SVD
 
-1. Data cleaning and generation
+## Data cleaning and generation
 
 The entire ratings matrix is being hosted in a sparse and compressed format on my Bluehost server. It can be downloaded with the following command:
 
@@ -17,7 +17,7 @@ Or if pigz is not installed on your system, you can use:
 
 gunzip ratings_matrix.mtx.gz
 
-# 2) Utils training and test set
+## Utils training and test set
 
 To get a subset of the dataset, we run:
 
@@ -31,10 +31,10 @@ To split it into a training and test set, you can use:
 
 python utils/train_test_split.py
 
-# 3) Raw SVD, reconstruction error
+## Raw SVD, reconstruction error
 
 python svd_reconstruct.py
 
-# 4) Mean Absolute Error and deviations from orthogonality
+## Mean Absolute Error and deviations from orthogonality
 
 python incremental_svd2.py
