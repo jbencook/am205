@@ -227,6 +227,11 @@ Note that $u = 3,000$ is SVD on the entire ratings matrix.
 In Figure \ref{fig:ortho_small}, the deviations from orthogonality, 
 $\|\mathbf{U}_k\mathbf{U}_k^{\T}\|_2$ is plotted as $k$ increases for several values of $u$. As with Figure \ref{fig:error_small}, the line where $u = 3,000$ represents SVD on the entire ratings matrix. As is expected, deviations from orthogonality are much more pronounced for incremental SVD that start with smaller subsets of the data.
 
+In Figure \ref{fig:recon_small}, plots the error in reconstructing the ratings matrix $\A$.
+Unsurprisingly, large values of $k$ and starting with large numbers
+of users get us closer to the actual ratings matrix.
+
+
 \begin{figure}[H]
 \begin{center}
 %\framebox[4.0in]{$\;$}
@@ -247,6 +252,18 @@ $\|\mathbf{U}_k\mathbf{U}_k^{\T}\|_2$ is plotted as $k$ increases for several va
 $\|\mathbf{U}_k\mathbf{U}_k^{\T} - \mathbb{I}_m\|_{\textrm{F}}$, for
 incremental SVD starting with several different numbers of users.}
 \label{fig:ortho_small}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+%\framebox[4.0in]{$\;$}
+\fbox{\includegraphics[width=.7\textwidth]{../images/reconstruct_fro_3000x1000}}
+%\fbox{\includegraphics{../scatter_results}}
+\end{center}
+\caption{Reconstruction error
+$\|\mathbf{U}_k\mathbf{S}_k\mathbf{V}_k^{\T} - \A\|_{\textrm{F}}$ for
+the $3,000 \times 1,000$ ratings matrix.}
+\label{fig:recon_small}
 \end{figure}
 
 \section{Conclusion}
