@@ -53,10 +53,9 @@ The first line in the text file is the movie's unique ID number, which is
 an integer from 1 to 17,770.
 All other lines have three comma-delimited entries: user ID, rating, and date.
 
-There are 480,189 unique users in the dataset, however, IDs range from 1 to 2,649,429, with gaps. 
-Ratings are integers from one to five indicating the number of stars 
-the user gave to the movie in question.
-Dates are in the YYYY-MM-DD format, although we do not use this information in the current project. 
+There are 480,189 unique users in the dataset, with their IDs ranging from 1 to 2,649,429, with gaps.
+Ratings are integers from one to five indicating the number of stars the user gave to the movie in question.
+Dates are in the YYYY-MM-DD format, although we do not use this information in the current project.
 For example:
 
 \begin{verbatim}
@@ -72,14 +71,14 @@ The above data come from the first movie's text file, which contains ratings for
 
 In order to be able to perform SVD, we need a matrix with users on the rows and movies on the columns.
 This matrix would be $480,179 \times 17,770 = 8.5 \textrm{ billion}$ entries.
-In a regular matrix format, this would too big to hold in memory. One estimate is that it takes roughly 65 Gb of RAM to hold the entire matrix \citep{revoR} although the actual size would depend on the size of the amount of space allocated for each rating.
-Fortunately, the matrix is extremely sparse, containing only around 100 million non-zero entries.
-The data structure we use is Python's \verb!scipy.sparse.lil_matrix!.
+In a regular matrix format, this would too big to hold in memory. One estimate is that it takes roughly 65 GB of RAM to hold the entire matrix \citep{revoR} although the actual size would depend on the amount of space allocated for each rating.
+Fortunately, the matrix is extremely sparse, containing around 100 million non-zero entries.
+To store the data in our project, we use SciPy's \verb!scipy.sparse.lil_matrix! which constructs sparse matrices using row-based linked lists.
 We store data from the text files in this sparse matrix as we read them.
 After reading in all of the text files, we output the matrix to a Matrix Market format.
 The Matrix Market format starts with a line containing the dimensions of the matrix and the number of non-zero entries.
 Then, each line contains $i \hspace{2ex} j \hspace{2ex} <\textrm{value}>$.
-For example, these are the first few lines of a Matrix Market file with a subset of the Netflix data :
+For example, these are the first few lines of a Matrix Market file with a subset of the Netflix data:
 
 \begin{verbatim}
 20000 1000 564726
@@ -91,7 +90,7 @@ For example, these are the first few lines of a Matrix Market file with a subset
 \end{verbatim}
 
 Finally, because the process of implementing our incremental SVD system was iterative and because even the iterative method requires serious computational power, we reduced our dataset to smaller subsets for testing.
-We ran our algorithm on datasets of size $1000 \times 2000$, $1000 \times 3000$, \ldots.
+\fix{We ran our algorithm on datasets of size $1000 \times 2000$, $1000 \times 3000$, \ldots.}
 
 \section{Method}
 
@@ -99,19 +98,20 @@ In the context of recommender systems, the main task of Singular Value Decomposi
 We need to be able to summarize the key characteristics of a movie in a much smaller number of features, or variables, than the total number of users in the system.
 Similarly, we need to reduce the key preferences of users to something much smaller than the total number of movies in the database.
 The reasons for decreasing the dimensionality of the dataset are two-fold.
-First, without dimensionality reduction, machine learning tasks would be computationally intractable and second, reducing the dimensionality actually allows us to predict ratings more effectively, since our dataset is so sparse.
+First, without dimensionality reduction, machine learning tasks would be computationally intractable.
+Second, reducing the dimensionality actually allows us to predict ratings more effectively, since our dataset is so sparse.
 
 \subsection{SVD}
 
-As with other matrix factorization techniques, SVD works by decomposing a matrix, $\A \in \mathbb{R}^{m \times n}$, where $m \geq n$ and 
-$\textrm{rank}(\A) = r$, 
+As with other matrix factorization techniques, SVD works by decomposing a matrix, $\A \in \mathbb{R}^{m \times n}$, where $m \geq n$ and
+$\textrm{rank}(\A) = r$,
 into separate matrices whose product is $\A$:
 $$\A = \mathbf{U}\mathbf{S}\mathbf{V}^{\T}$$
 Here, $\mathbf{U} \in \mathbb{R}^{m \times r}$, is composed of the eigenvectors of $\A\A^{\T}$, or left-singular vectors of $\A$, 
 $\mathbf{S} \in \mathbb{R}^{r \times r}$ is a diagonal matrix whose elements are the $r$ singular values of $\A$,
 and $\mathbf{V}^{\T} \in \mathbb{R}^{r \times n}$ is composed of the
 eigenvectors of $\A^{\T}\A$, or right-singular vectors of $\A$
-\cite{golub1970}.
+\citep{golub1970}.
 Furthermore, the rows and columns of $\mathbf{U}$, $\mathbf{S}$, and $\mathbf{V}^{\T}$ are sorted in such a way that the largest singular values occur in the upper left most corner of $\mathbf{S}$.
 This means that we can achieve a low-rank approximation to $\A$ by considering taking only the $k$ first singular values.
 
@@ -123,21 +123,21 @@ This means that we can achieve a low-rank approximation to $\A$ by considering t
 
 This approximation $\A_k$ is the rank $k$ matrix that minimizes the Frobenius norm: $\|\A - \A_k\|_{\textrm{F}}$.
 
-Although we attempted to implement the full SVD algorithm by following the recipe laid out in \cite{recipes2007}, it quickly became apparent that implementing SVD from scratch was beyond the scope of this project
+Although we attempted to implement the full SVD algorithm by following the recipe laid out in \cite{recipes2007}, it quickly became apparent that implementing SVD from scratch was beyond the scope of this project.
+\fix{It would be unlikely that we could use our SVD implementation on the full dataset either}
 
 \subsection{Folding-in}
-Unfortunately, the SVD algorithm requires $O(m^3)$ time complexity.
-On the Netflix training dataset with 480,179 users, this is on the order
-of $10^{17}$ operations, which is infeasible without a big super computer.
+The SVD algorithm requires $O(m^3)$ time complexity.
+On the Netflix training dataset with 480,179 users, this is on the order of $10^{17}$ operations, which is infeasible without a super computer.
 Fortunately, a technique called folding-in allows us to compute SVD on a subset of users (or movies) and then add users (movies) incrementally.
 
-
-This approximation of $\A$ becomes worse as we fold-in more and more users, and we lose orthonormality; 
-however, the approximation performs well enough to predict user ratings to within a tolerable amount of error.
+This approximation of $\A$ becomes worse as we fold-in more and more users, and we lose orthonormality.
+In the context of recommender systems, however, the loss of orthonormality is not necessarily a core concern.
+The approximation produced by the incremental SVD algorithm performs well enough to predict user ratings to within a tolerable amount of error, especially as the exact initial values are already unknown.
 Additionally, each user can be folded-in in $O(1)$ time, meaning it is suddenly possible to approximate SVD of the whole matrix on a laptop.
 
-Assuming we want to fold-in users, we have two parameters, the number of singular values to use, $k$, and the number of users to begin with, $u$. 
-The procedure works as follow \cite{slides}, :
+Assuming we want to fold-in users, we have two parameters, the number of singular values to use, $k$, and the number of users to begin with, $u$.
+The procedure described in \cite{slides} states that to compute the incremental SVD of a matrix:
 
 \begin{enumerate}
 \item Compute full SVD for the first $u$ users:
@@ -172,18 +172,18 @@ For example, to estimate the rating that user $i$ would give movie $j$, we simpl
 $$P_{i,j} = \bar{r}_i + \mathbf{U}\sqrt{\mathbf{S}_k}^{\T}[i,:]
 \cdot \sqrt{\mathbf{S}_k}\mathbf{V}_k^{\T}[:,j]$$
 
-where $\bar{r}_i$ is the row mean of the non-zero elements of $\A$  \cite{sarwar2002}.
+where $\bar{r}_i$ is the row mean of the non-zero elements of $\A$ \citep{sarwar2002}.
 
 \section{Results}
 
 %Explain how we tested predictions
 %Explain how we tested orthonormality
-We evaluate incremental SVD in three ways. 
+We evaluate incremental SVD in three ways.
 First, we hold out a test set of ratings and use our recommender system to predict what they should be.
-Let the vector of user ratings in the test set be $y$, one indication of 
+Let the vector of user ratings in the test set be $y$, one indication of
 the performance of incremental SVD is relative error, $\frac{\|y - \hat{y}\|_2}{\|y\|_2}$, where $\hat{y}$ is the vector of predictions for the ratings in the test set.
-Next, we asses the `accuracy' of our approximation of $\A$, $\|\A - \A_k\|_{\textrm{F}}$ where $\A_k$ is constructed from $\mathbf{U}_k$ that is built with folding-in.
-Finally, in full SVD, the columns of $\mathbf{U}$ are orthonormal, meaning $\mathbf{U}\mathbf{U}^{\T} = \mathbb{I}_m$. 
+Next, we assess the `accuracy' of our approximation of $\A$, $\|\A - \A_k\|_{\textrm{F}}$ where $\A_k$ is constructed from $\mathbf{U}_k$ that is built with folding-in.
+Finally, in full SVD, the columns of $\mathbf{U}$ are orthonormal, meaning $\mathbf{U}\mathbf{U}^{\T} = \mathbb{I}_m$.
 We assess the deviation from orthonormality by computing $\|\mathbf{U}\mathbf{U}^{\T} - \mathbb{I}_m\|_{\textrm{F}}$.
 
 Figure \ref{fig:error_small} shows 
@@ -233,7 +233,7 @@ Figure \ref{fig:error_small} shows
 This is a discussion of how well we did.
 
 \section{Conclusion}
-In conlusion, this paper was awesome. Cheers.
+In conclusion, this paper was awesome. Cheers.
 
 \bibliography{merity_cook}
 \bibliographystyle{plainnat}
