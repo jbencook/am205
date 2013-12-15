@@ -17,11 +17,11 @@ def single_dot(u, svT, x, y):
 
 
 def check_orthogonality(A):
-  return np.trace(abs(A.T.dot(A) - np.diag([1] * min(A.shape))))
+  return np.linalg.norm(A.T.dot(A) - np.diag([1] * min(A.shape)))
 
 if __name__ == '__main__':
   train = np.matrix(mmread('subset_train.mtx').todense())
-  train = train[0:200, 0:100]
+  train = train[0:2000, 0:100]
   print 'Using matrix of size {}'.format(train.shape)
 
   print 'Testing SVD'
