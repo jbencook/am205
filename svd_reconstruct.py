@@ -5,7 +5,6 @@ import scipy.linalg
 from prettyplotlib import plt
 #import matplotlib.pyplot as plt
 from scipy.io import mmread
-from sklearn.metrics import mean_squared_error
 ##
 from incremental_svd2 import incremental_SVD
 
@@ -21,7 +20,7 @@ def check_orthogonality(A):
 
 if __name__ == '__main__':
   train = np.matrix(mmread('subset_train.mtx').todense())
-  train = train[0:2000, 0:100]
+  train = train[0:3000, 0:1000]
   print 'Using matrix of size {}'.format(train.shape)
 
   print 'Testing SVD'
@@ -35,7 +34,8 @@ if __name__ == '__main__':
   for k in xrange(1, 100):
     low_s = [s[i] for i in xrange(k)] + (min(u.shape[0], vT.shape[1]) - k) * [0]
     reconstruct = u.dot(scipy.linalg.diagsvd(low_s, u.shape[0], vT.shape[1]).dot(vT))
-    err = np.sqrt(mean_squared_error(train, reconstruct))
+    #err = np.sqrt(mean_squared_error(train, reconstruct))
+    err = np.linalg.norm(train - reconstruct, 'fro')
     print 'Exact SVD with low-rank approximation {}'.format(k)
     #print err
     #print
@@ -52,14 +52,13 @@ if __name__ == '__main__':
     print '... with block size of {}'.format(num)
     X, Y = [], []
     incr_orthoY = []
-    for k in xrange(1, 101, 1):
-      if k % 25 == 0:
-        print '   ... up to k={}'.format(k)
-      u, s, vT = incremental_SVD(train, k, num)
-      reconstruct = u.dot(s.dot(vT))
-      X.append(k)
-      Y.append(np.sqrt(mean_squared_error(train, reconstruct)))
-      incr_orthoY.append(check_orthogonality(u))
+    uL, sL, vTL = incremental_SVD(train, range(1, 101), num)
+    for i in xrange(len(uL)):
+      reconstruct = uL[i].dot(sL[i].dot(vTL[i]))
+      err = np.linalg.norm(train - reconstruct, 'fro')
+      X.append(i + 1)
+      Y.append(err)
+      incr_orthoY.append(check_orthogonality(uL[i]))
     incr_ortho.append(['iSVD u={}'.format(num), X, incr_orthoY])
     plt.plot(X, Y, label='iSVD u={}'.format(num))
   """
@@ -74,10 +73,10 @@ if __name__ == '__main__':
   ##
   plt.title('SVD reconstruction error on {}x{} matrix'.format(*train.shape))
   plt.xlabel('Low rank approximation (k)')
-  plt.ylabel('Root Mean Squared Error')
+  plt.ylabel('Frobenius norm')
   plt.ylim(0, max(svdY))
   plt.legend(loc='best')
-  plt.savefig('reconstruct_error_{}x{}.pdf'.format(*train.shape))
+  plt.savefig('reconstruct_fro_{}x{}.pdf'.format(*train.shape))
   plt.show(block=True)
   ##
   plt.plot(svdX, svdY, label="SVD", color='black', linewidth='2', linestyle='--')
@@ -85,7 +84,7 @@ if __name__ == '__main__':
     plt.plot(X, Y, label=label)
   plt.title('SVD orthogonality error on {}x{} matrix'.format(*train.shape))
   plt.xlabel('Low rank approximation (k)')
-  plt.ylabel('Orthogonality error')
+  plt.ylabel('Deviation from orthogonality')
   plt.semilogy()
   #plt.ylim(0, max(orthoY))
   plt.legend(loc='best')

@@ -69,11 +69,21 @@ In this paper, we give an introduction to collaborative filtering on large datas
 
 \section{Data}
 
+The Netflix Prize was a large-scale recommendation competition held by Netflix.
+Their aim was to improve the recommendations they provided for their users by allowing third party researchers to analyze their data.
+At the time, the Netflix dataset was the largest real world dataset available to researchers.
+Collected over 7 years, it contained over 100 million ratings for 17,700 movies provided by over 480,000 users.
+To compete, participants would send predicted ratings for a specific test set to Netflix.
+Netflix would then return the root mean squared error (RMSE) for a portion of this test set.
+By providing RMSE on only a portion of the test set, teams cannot overfit the dataset to win the competition as their accuracy on the hidden portion would fall substantially.
+After the competition concluded, this dataset was released publicly for continued research.
+A full description of the rules and dataset can be found at the Netflix Prize website.
+
+
 %Here, we talk about the Netflix dataset. How we scrubbed it, what it consists of, etc.
-The core of the Netflix dataset consists of 17,770 text files.
+The Netflix dataset consists of 17,770 text files.
 Each text file represents a distinct movie.
-The first line in the text file is the movie's unique ID number, which is
-an integer from 1 to 17,770.
+The first line in the text file is the movie's unique ID number, which is an integer from 1 to 17,770.
 All other lines have three comma-delimited entries: user ID, rating, and date.
 
 There are 480,189 unique users in the dataset, with their IDs ranging from 1 to 2,649,429, with gaps.
@@ -94,13 +104,14 @@ The above data come from the first movie's text file, which contains ratings for
 
 In order to be able to perform SVD, we need a matrix with users on the rows and movies on the columns.
 This matrix would be $480,179 \times 17,770 = 8.5 \textrm{ billion}$ entries.
-In a regular matrix format, this would too big to hold in memory. One estimate is that it takes roughly 65 GB of RAM to hold the entire matrix \citep{revoR} although the actual size would depend on the amount of space allocated for each rating.
+In a regular matrix format, this would too big to hold in memory.
+One estimate is that it takes roughly 65 GB of RAM to hold the entire matrix \citep{revoR} although the actual size would depend on the amount of space allocated for each rating.
 Fortunately, the matrix is extremely sparse, containing around 100 million non-zero entries.
 To store the data in our project, we use SciPy's \verb!scipy.sparse.lil_matrix! which constructs sparse matrices using row-based linked lists.
 We store data from the text files in this sparse matrix as we read them.
 After reading in all of the text files, we output the matrix to a Matrix Market format.
 The Matrix Market format starts with a line containing the dimensions of the matrix and the number of non-zero entries.
-Then, each line contains $i \hspace{2ex} j \hspace{2ex} <\textrm{value}>$.
+Then, each line contains $i \enskip j \enskip rating$.
 For example, these are the first few lines of a Matrix Market file with a subset of the Netflix data:
 
 \begin{verbatim}
