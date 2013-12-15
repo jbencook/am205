@@ -79,6 +79,7 @@ if __name__ == '__main__':
 
 
   for u in nums:
+    print 'u = %d' % u
     rmse,ortho = get_error(K,u,train,test)
     RMSE.append(rmse)
     ORTHO.append(ortho)
@@ -100,7 +101,3 @@ if __name__ == '__main__':
   leg = plt.legend(nums)
   leg.draw_frame(False)  
   fig.savefig('ORTHO.png')
-
-
-
-
