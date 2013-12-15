@@ -1,6 +1,0 @@
-*.png
-tex/*.blg
-tex/*.pdf
-tex/*.bbl
-tex/*.bcf
-tex/*.aux
