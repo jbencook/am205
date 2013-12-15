@@ -10,35 +10,29 @@ from sys import argv
 from subprocess import call
 
 
-def incremental_SVD(X, k, num, by_row=True):
+def incremental_SVD(X, K, num, by_row=True):
   if by_row:
     u, s, v = np.linalg.svd(X[:num, :])
-    uk = u[:, :k]
-    sk = np.diag(s[:k])
-    vk = v[:k, :]
-    sk_inv = np.linalg.pinv(sk)
 
-    for i in xrange(X.shape[0] - num):
-      c = X[num + i, :]
-      cp = np.dot(np.dot(c, vk.T), sk_inv)
-      uk = np.vstack((uk, cp))
+    uk_list = []
+    sk_list = []
+    vk_list = []
+    for k in K:
+      uk = u[:, :k]
+      sk = np.diag(s[:k])
+      vk = v[:k, :]
+      sk_inv = np.linalg.pinv(sk)
 
-  else:
-    u, s, v = np.linalg.svd(X[:, :num])
-    uk = u[:, :k]
-    sk = np.diag(s[:k])
-    vk = v[:k, :]
-    sk_inv = np.linalg.pinv(sk)
+      for i in xrange(X.shape[0] - num):
+        c = X[num + i, :]
+        cp = np.dot(np.dot(c, vk.T), sk_inv)
+        uk = np.vstack((uk, cp))
 
-    for j in xrange(X.shape[1] - num):
-      p  = X[:, num + j]
-      pp = np.dot(np.dot(p.T, uk), sk_inv)
-      vkk = np.zeros((vk.shape[0], vk.shape[1] + 1))
-      vkk[:, :vk.shape[1]] = vk
-      vkk[:, vk.shape[1]] = pp
-      vk = vkk
+      uk_list.append(uk)
+      sk_list.append(sk)
+      vk_list.append(vk)
 
-  return uk, sk, vk
+  return uk_list, sk_list, vk_list
 
 
 def test_perf(X, test, uk, sk, vk):
@@ -54,14 +48,18 @@ def test_perf(X, test, uk, sk, vk):
 
     return prediction
 
-def get_error(k,u,train,test):
-  U,S,V = incremental_SVD(train, k, u, by_row=True)
-  pred = test_perf(train, test, U,S,V)
-  ndx = ~np.isnan(pred)
-  print np.sum(np.isnan(pred))
-  rmse = np.sqrt(mean_squared_error(pred[ndx], test[ndx,2]))
-  ortho = np.linalg.norm(U.dot(U.T) - np.identity(U.shape[0]))
-  return rmse,ortho
+def get_error(K,u,train,test):
+  RMSE = []
+  ORTHO = []
+  U,S,V = incremental_SVD(train, K, u, by_row=True)
+  for i,k in enumerate(K):
+    pred = test_perf(train, test, U[i],S[i],V[i])
+    ndx = ~np.isnan(pred)
+    print 'k = %d' % k
+    RMSE.append(np.sqrt(mean_squared_error(pred[ndx], test[ndx,2])))
+    ORTHO.append(np.linalg.norm(U[i].dot(U[i].T) - np.identity(U[i].shape[0])))
+
+  return RMSE,ORTHO
 
 if __name__ == '__main__':
   train = np.asarray(mmread('subset_train.mtx').todense())
@@ -73,22 +71,25 @@ if __name__ == '__main__':
       num += 1
   print 'all zeros', num
 
-  K = range(3,15)
-  nums = [100,200,500,1000,2000]
+  K = range(3,30)
+  nums = [500]
 
-  RMSE = np.zeros((len(nums), len(K)))
-  ORTHO = np.zeros((len(nums), len(K)))
-
-
-  for i,u in enumerate(nums):
-    for j,k in enumerate(K):
-      rmse,ortho = get_error(k,u,train,test)
-      RMSE[i,j] = rmse
-      ORTHO[i,j] = ortho
+  RMSE = []
+  ORTHO = []
 
 
-  np.savetxt('RMSE.txt', RMSE)
-  np.savetxt('ORTHO.txt', ORTHO)
+  RMSE,ORTHO = get_error(K,500,train,test)
+
+  fig = plt.figure()
+  plt.plot(K, RMSE)
+  fig.savefig('RMSE.png')
+
+  fig = plt.figure()
+  plt.plot(K, ORTHO)
+  fig.savefig('ORHTO.png')
+
+  #np.savetxt('RMSE.txt', RMSE)
+  #np.savetxt('ORTHO.txt', ORTHO)
 
 
 
