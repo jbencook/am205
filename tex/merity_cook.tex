@@ -63,7 +63,20 @@ A major appeal of this method is that it is domain free and does not need any in
 Though it does suffer from the \textit{cold start} problem\footnote{The \textit{cold start} problem refers to the issue of making recommendations before a large enough history of user behaviour is available.}, given large amounts of user history, collaborative filtering is the most popular method for recommendation systems.
 Collaborative filtering is widely deployed across the Internet, seeing specific popularity after the introduction of the Netflix prize competition in 2006.
 
-\fix{Explain matrix factorization methods in terms of collaborative filtering.}
+It is important to recognize that the rating matrix contains both signal and noise.
+The signal would be the underlying customer's true rating of the item.
+The noise could arise from factors such as watching a film on a bad day, misclicking the ratings widget, or a user rating an item on someone else's account.
+To get a good approximation of the missing ratings, we need to remove the noise and use the recovered signal to predict missing ratings.
+
+Many of the most popular collaborative filtering methods either use singular value decomposition (SVD) or are SVD inspired.
+SVD works well in this task as it has the important property of providing the best low-rank approximation of the original matrix, as determined by the Frobenius norm.
+When the SVD minimizes the Frobenius norm, this is equivalent to minimizing the root mean square error (RMSE) over all elements of the matrix.
+This dimensionality reduction approach intuitively maps to the collaborative filtering process by mapping customers who rate products similarly into the space spanned by the same eigenvectors.
+These represent latent features which in the Netflix process commonly map to movie genres.
+By taking only a low-rank approximation of this, we can filter out small singular values that represent noise in the rating process.
+
+It should be noted that for real world recommendation systems, variations of SVD are used.
+These variations handle the sparse matrix more effectively \citep{kurucz2007methods}, add regularization to prevent overfitting \citep{zhou2008large}, and merge multiple methods and information about the problem to improve the recommendations \citep{bell2007bellkor}.
 
 In this paper, we give an introduction to collaborative filtering on large datasets using incremental SVD.
 
@@ -274,4 +287,3 @@ Still, it allows us to implement a recommendation system at scale and to predict
 \bibliographystyle{plainnat}
 
 \end{document}
-
