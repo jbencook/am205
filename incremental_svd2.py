@@ -71,22 +71,31 @@ if __name__ == '__main__':
       num += 1
   print 'all zeros', num
 
-  K = range(3,30)
-  nums = [500]
+  K = range(3,10)
+  nums = [100,500]
 
   RMSE = []
   ORTHO = []
 
 
-  RMSE,ORTHO = get_error(K,500,train,test)
+  for u in nums:
+    rmse,ortho = get_error(K,u,train,test)
+    RMSE.append(rmse)
+    ORTHO.append(ortho)
 
   fig = plt.figure()
-  plt.plot(K, RMSE)
+  for rmse in RMSE:
+    plt.plot(K, rmse)
+  plt.xlabel('low-rank approximation (k)')
+  plt.ylabel('root mean squared error')
   fig.savefig('RMSE.png')
 
   fig = plt.figure()
-  plt.plot(K, ORTHO)
-  fig.savefig('ORHTO.png')
+  for ortho in ORTHO:
+    plt.plot(K, ortho)
+  plt.xlabel('low-rank approximation (k)')
+  plt.ylabel('deviation from orthogonality')
+  fig.savefig('ORTHO.png')
 
   #np.savetxt('RMSE.txt', RMSE)
   #np.savetxt('ORTHO.txt', ORTHO)
