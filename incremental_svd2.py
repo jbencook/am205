@@ -62,8 +62,8 @@ def get_error(K,u,train,test):
   return RMSE,ORTHO
 
 if __name__ == '__main__':
-  train = np.asarray(mmread('subset_train.mtx').todense())
-  test  = np.loadtxt('subset_test.txt', dtype=np.int32)
+  train = np.asarray(mmread('subset_train_3000x3000.mtx').todense())
+  test  = np.loadtxt('subset_test_3000x3000.txt', dtype=np.int32)
 
   num = 0
   for i in xrange(train.shape[0]):

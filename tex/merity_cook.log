@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 DEC 2013 14:25
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 DEC 2013 15:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -304,82 +304,55 @@ Overfull \hbox (11.05045pt too wide) in paragraph at lines 150--150
 []\OT1/ptm/m/n/10 FIX 
  []
 
-[3] <../images/reconstruct_error_2000x100.pdf, id=24, 578.16pt x 433.62pt>
-File: ../images/reconstruct_error_2000x100.pdf Graphic file (type pdf)
+[3] <../images/rmse_3000x1000.png, id=24, 578.16pt x 433.62pt>
+File: ../images/rmse_3000x1000.png Graphic file (type png)
 
-<use ../images/reconstruct_error_2000x100.pdf>
-Package pdftex.def Info: ../images/reconstruct_error_2000x100.pdf used on input
- line 217.
+<use ../images/rmse_3000x1000.png>
+Package pdftex.def Info: ../images/rmse_3000x1000.png used on input line 220.
 (pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
 
-<../images/reconstruct_error_2000x1000.pdf, id=25, 578.16pt x 433.62pt>
-File: ../images/reconstruct_error_2000x1000.pdf Graphic file (type pdf)
+<../images/ortho_3000x1000.png, id=26, 578.16pt x 433.62pt>
+File: ../images/ortho_3000x1000.png Graphic file (type png)
 
-<use ../images/reconstruct_error_2000x1000.pdf>
-Package pdftex.def Info: ../images/reconstruct_error_2000x1000.pdf used on inpu
-t line 227.
+<use ../images/ortho_3000x1000.png>
+Package pdftex.def Info: ../images/ortho_3000x1000.png used on input line 230.
 (pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
 
-Underfull \vbox (badness 4303) has occurred while \output is active []
+Underfull \vbox (badness 1052) has occurred while \output is active []
 
- [4 <../images/reconstruct_error_2000x100.pdf>]
-<../images/reconstruct_ortho_2000x100.pdf, id=75, 578.16pt x 433.62pt>
-File: ../images/reconstruct_ortho_2000x100.pdf Graphic file (type pdf)
-
-<use ../images/reconstruct_ortho_2000x100.pdf>
-Package pdftex.def Info: ../images/reconstruct_ortho_2000x100.pdf used on input
- line 237.
-(pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
-
-<../images/reconstruct_ortho_2000x1000.pdf, id=76, 578.16pt x 433.62pt>
-File: ../images/reconstruct_ortho_2000x1000.pdf Graphic file (type pdf)
-
-<use ../images/reconstruct_ortho_2000x1000.pdf>
-Package pdftex.def Info: ../images/reconstruct_ortho_2000x1000.pdf used on inpu
-t line 247.
-(pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5 <../images/reconstruct_error_2000x1000.pdf> <../images/reconstruct_ortho_20
-00x100.pdf
-
-pdfTeX warning: pdflatex (file ../images/reconstruct_ortho_2000x100.pdf): PDF i
-nclusion: multiple pdfs with page group included in a single page
->] (./merity_cook.bbl
+ [4 <../images/rmse_3000x1000.png>] (./merity_cook.bbl
 Underfull \hbox (badness 10000) in paragraph at lines 40--45
 []\OT1/ptm/m/n/10 David Smith.  The Net-flix Prize, Big Data, SVD and R.
  []
 
-) [6 <../images/reconstruct_ortho_2000x1000.pdf>] (./merity_cook.aux) ) 
+) [5 <../images/ortho_3000x1000.png>] (./merity_cook.aux) ) 
 Here is how much of TeX's memory you used:
- 3703 strings out of 493315
- 49225 string characters out of 6137904
- 117948 words of memory out of 5000000
- 7066 multiletter control sequences out of 15000+600000
+ 3691 strings out of 493315
+ 48645 string characters out of 6137904
+ 117932 words of memory out of 5000000
+ 7056 multiletter control sequences out of 15000+600000
  26541 words of font info for 61 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,15n,39p,355b,274s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/lo
-cal/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/201
-3/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2013/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fon
-ts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist
-/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
-ype1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/t
-imes/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri
-8a.pfb>
-Output written on merity_cook.pdf (6 pages, 216497 bytes).
+ 38i,15n,39p,355b,276s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/
+2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/pub
+lic/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
+/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/tim
+es/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.
+pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on merity_cook.pdf (5 pages, 232556 bytes).
 PDF statistics:
- 254 PDF objects out of 1000 (max. 8388607)
- 80 compressed objects within 1 object stream
+ 82 PDF objects out of 1000 (max. 8388607)
+ 56 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
