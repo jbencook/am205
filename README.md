@@ -21,7 +21,7 @@ gunzip ratings_matrix.mtx.gz
 
 To get a subset of the dataset, we run:
 
-python utils/subset-data.py <path to ratings_matrix.mtx> <m> <n>
+python utils/subset-data.py (path to ratings_matrix.mtx) (m) (n)
 
 e.g.
 

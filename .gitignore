@@ -3,3 +3,5 @@ tex/*.pdf
 tex/*.bbl
 tex/*.bcf
 tex/*.aux
+*.pyc
+tex/*.log
