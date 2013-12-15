@@ -11,6 +11,9 @@ from subprocess import call
 
 
 def incremental_SVD(X, K, num, by_row=True):
+  '''
+  Takes a vector of k values!
+  '''
   if by_row:
     u, s, v = np.linalg.svd(X[:num, :])
 
