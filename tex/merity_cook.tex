@@ -214,6 +214,9 @@ We ran our prediction beginning with several different numbers of
 users $u$ (displayed in the legend).
 Note that $u = 3,000$ is SVD on the entire ratings matrix.
 
+In Figure \ref{fig:ortho_small}, the deviations from orthogonality, 
+$\|\mathbf{U}_k\mathbf{U}_k^{\T}\|_2$ is plotted as $k$ increases for several values of $u$. As with Figure \ref{fig:error_small}, the line where $u = 3,000$ represents SVD on the entire ratings matrix. As is expected, deviations from orthogonality are much more pronounced for incremental SVD that start with smaller subsets of the data.
+
 \begin{figure}[H]
 \begin{center}
 %\framebox[4.0in]{$\;$}

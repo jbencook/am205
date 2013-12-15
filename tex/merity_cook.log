@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 DEC 2013 15:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 DEC 2013 15:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -308,22 +308,27 @@ Overfull \hbox (11.05045pt too wide) in paragraph at lines 150--150
 File: ../images/rmse_3000x1000.png Graphic file (type png)
 
 <use ../images/rmse_3000x1000.png>
-Package pdftex.def Info: ../images/rmse_3000x1000.png used on input line 220.
+Package pdftex.def Info: ../images/rmse_3000x1000.png used on input line 223.
 (pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
 
-<../images/ortho_3000x1000.png, id=26, 578.16pt x 433.62pt>
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+<../images/ortho_3000x1000.png, id=31, 578.16pt x 433.62pt>
 File: ../images/ortho_3000x1000.png Graphic file (type png)
 
 <use ../images/ortho_3000x1000.png>
-Package pdftex.def Info: ../images/ortho_3000x1000.png used on input line 230.
+Package pdftex.def Info: ../images/ortho_3000x1000.png used on input line 233.
 (pdftex.def)             Requested size: 278.23827pt x 208.67778pt.
- [4 <../images/rmse_3000x1000.png>]
-(./merity_cook.bbl
+ (./merity_cook.bbl
+Underfull \vbox (badness 1253) has occurred while \output is active []
+
+ [5 <../images/rmse_3000x1000.png> <../images/ortho_3000x1000.png>]
 Underfull \hbox (badness 10000) in paragraph at lines 40--45
 []\OT1/ptm/m/n/10 David Smith.  The Net-flix Prize, Big Data, SVD and R.
  []
 
-) [5 <../images/ortho_3000x1000.png>] (./merity_cook.aux) ) 
+) [6] (./merity_cook.aux) ) 
 Here is how much of TeX's memory you used:
  3691 strings out of 493315
  48645 string characters out of 6137904
@@ -331,26 +336,26 @@ Here is how much of TeX's memory you used:
  7056 multiletter control sequences out of 15000+600000
  26541 words of font info for 61 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,15n,39p,355b,276s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/
-2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2013/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2013/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2013/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/pub
-lic/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1
-/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/tim
-es/utmb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.
-pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on merity_cook.pdf (5 pages, 233602 bytes).
+ 38i,15n,39p,370b,276s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/fonts/enc/dvips/
+base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmbx10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/c
+mex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+mi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmm
+i7.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10
+.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pf
+b></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></us
+r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/lo
+cal/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texliv
+e/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on merity_cook.pdf (6 pages, 234259 bytes).
 PDF statistics:
- 82 PDF objects out of 1000 (max. 8388607)
- 56 compressed objects within 1 object stream
+ 85 PDF objects out of 1000 (max. 8388607)
+ 58 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
