@@ -211,8 +211,8 @@ We assess the deviation from orthonormality by computing $\|\mathbf{U}\mathbf{U}
 
 Figure \ref{fig:error_small} shows root mean squared error for our prediction of user ratings on the test set as $k$ increases.
 We ran our prediction beginning with several different numbers of 
-users $u$, displayed in the legend.
-Note that $u = 3,000$ is the same as SVD on the entire ratings matrix.
+users $u$ (displayed in the legend).
+Note that $u = 3,000$ is SVD on the entire ratings matrix.
 
 \begin{figure}[H]
 \begin{center}
@@ -220,7 +220,7 @@ Note that $u = 3,000$ is the same as SVD on the entire ratings matrix.
 \fbox{\includegraphics[width=.7\textwidth]{../images/rmse_3000x1000}}
 %\fbox{\includegraphics{../scatter_results}}
 \end{center}
-\caption{This is a caption}
+\caption{RMSE as $k$ increases for several values of $u$ on a 3,000 $\times$ 1,000 subset of the ratings matrix. 10 \% of the ratings are held out for the test set.}
 \label{fig:error_small}
 \end{figure}
 
