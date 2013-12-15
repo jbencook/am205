@@ -37,16 +37,16 @@ J. Benjamin Cook
 \maketitle
 
 \begin{abstract}
-The singular value decomposition (SVD) is fundamental to many machine learning algorithms, primarily being used for dimensionality reduction.
-Unfortunately, SVD algorithms typically have quadratic complexity and require random access to the complete data set, making them impractical for many real world tasks.
+Singular value decomposition (SVD) is fundamental to many machine learning algorithms, primarily being used for dimensionality reduction.
+Unfortunately, SVD algorithms typically have cubic complexity and require random access to the complete data set, making them impractical for many real world tasks.
 We investigate the convergence properties of incremental singular value decomposition (SVD) which does not require the complete data set to be stored in memory.
-We then compare this with traditional SVD algorithms to see the impact on memory usage, speed of convergence, and orthogonality of the resulting SVD.
+We then compare this with a traditional, full SVD algorithm to see the impact on orthogonality of the resulting SVD.
 To motivate incremental SVD in the context of machine learning, we construct a recommendation system and show the performance of SVD compared to incremental SVD, showing the potential to incrementally build SVD-based models and produce a highly scalable recommendation system.
 \end{abstract}
 
 \section{Introduction}
 
-Recommendation systems aim to recommend an item to interested potential customers, tailoring the choice of item based upon both that customer's history and the history of the all users.
+Recommendation systems aim to recommend an item to interested potential customers, tailoring the choice of item based upon both that customer's history and the history of other users.
 The items recommended can be divserse, including movies, music, web pages, or other general products.
 These systems have evolved from novelties to vital tools that are re-shaping the world of e-commerce.
 By learning from both the customer and the broader community as to which items should be recommended to someone, these successful recommendations can lead to substantial improvements in both revenue and customer satisfaction \citep{schafer1999recommender}.
@@ -113,7 +113,7 @@ For example, these are the first few lines of a Matrix Market file with a subset
 \end{verbatim}
 
 Finally, because the process of implementing our incremental SVD system was iterative and because even the iterative method requires serious computational power, we reduced our dataset to smaller subsets for testing.
-\fix{We ran our algorithm on datasets of size $1000 \times 2000$, $1000 \times 3000$, \ldots.}
+We ran our algorithm on datasets of size $3000 \times 1000$, $3000 \times 3000$.
 
 \section{Method}
 
@@ -147,7 +147,7 @@ This means that we can achieve a low-rank approximation to $\A$ by considering t
 This approximation $\A_k$ is the rank $k$ matrix that minimizes the Frobenius norm: $\|\A - \A_k\|_{\textrm{F}}$.
 
 Although we attempted to implement the full SVD algorithm by following the recipe laid out in \cite{recipes2007}, it quickly became apparent that implementing SVD from scratch was beyond the scope of this project.
-\fix{It would be unlikely that we could use our SVD implementation on the full dataset either}
+Furthermore, the large time complexity of the algorithm, means that an implementation in pure Python would be too slow for practical use.
 
 \subsection{Folding-in}
 The SVD algorithm requires $O(m^3)$ time complexity.
@@ -202,9 +202,8 @@ where $\bar{r}_i$ is the row mean of the non-zero elements of $\A$ \citep{sarwar
 %Explain how we tested predictions
 %Explain how we tested orthonormality
 We evaluate incremental SVD in three ways.
-First, we hold out a test set of ratings and use our recommendation system to predict what they should be.
-Let the vector of user ratings in the test set be $y$, one indication of
-the performance of incremental SVD is relative error, $\frac{\|y - \hat{y}\|_2}{\|y\|_2}$, where $\hat{y}$ is the vector of predictions for the ratings in the test set.
+First, we hold out a test set of ratings and use our recommendation system to predict their values.
+Let the vector of user ratings in the test set be $y$, one popular measure of the performance of incremental SVD is root mean squared error, $\sqrt{\frac{\sum_{i=1}^N \left(y_i - \hat{y}_i\right)^2}{N}}$ where $\hat{y}$ is the vector of predictions for the ratings in the test set.
 Next, we assess the `accuracy' of our approximation of $\A$, $\|\A - \A_k\|_{\textrm{F}}$ where $\A_k$ is constructed from $\mathbf{U}_k$ that is built with folding-in.
 Finally, in full SVD, the columns of $\mathbf{U}$ are orthonormal, meaning $\mathbf{U}\mathbf{U}^{\T} = \mathbb{I}_m$.
 We assess the deviation from orthonormality by computing $\|\mathbf{U}\mathbf{U}^{\T} - \mathbb{I}_m\|_{\textrm{F}}$.
@@ -233,14 +232,16 @@ $\|\mathbf{U}_k\mathbf{U}_k^{\T}\|_2$ is plotted as $k$ increases for several va
 \fbox{\includegraphics[width=.7\textwidth]{../images/ortho_3000x1000}}
 %\fbox{\includegraphics{../scatter_results}}
 \end{center}
-\caption{This is a caption}
+\caption{Deviations from orthogonality, 
+$\|\mathbf{U}_k\mathbf{U}_k^{\T} - \mathbb{I}_m\|_{\textrm{F}}$, for
+incremental SVD starting with several different numbers of users.}
 \label{fig:ortho_small}
 \end{figure}
 
 \section{Conclusion}
 In this paper, we created a simple recommendation system by performing incremental SVD on a subset of the ratings matrix used in the Netflix Prize.
 In the incremental version, we lose properties of a typical SVD such as orthogonality of the columns (rows) of the $\mathbf{U}$ ($\mathbf{V}$) matrix.
-Still, it allows us to implement a recommendation system at scale and predict user ratings in a satisfactory way.
+Still, it allows us to implement a recommendation system at scale and to predict user ratings in a satisfactory way.
 
 
 \bibliography{merity_cook}
