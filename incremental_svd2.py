@@ -71,8 +71,8 @@ if __name__ == '__main__':
       num += 1
   print 'all zeros', num
 
-  K = range(3,10)
-  nums = [100,500]
+  K = range(3,50)
+  nums = [100,500,1000,2000,3000]
 
   RMSE = []
   ORTHO = []
@@ -88,6 +88,8 @@ if __name__ == '__main__':
     plt.plot(K, rmse)
   plt.xlabel('low-rank approximation (k)')
   plt.ylabel('root mean squared error')
+  leg = plt.legend(nums)
+  leg.draw_frame(False)
   fig.savefig('RMSE.png')
 
   fig = plt.figure()
@@ -95,10 +97,9 @@ if __name__ == '__main__':
     plt.plot(K, ortho)
   plt.xlabel('low-rank approximation (k)')
   plt.ylabel('deviation from orthogonality')
+  leg = plt.legend(nums)
+  leg.draw_frame(False)  
   fig.savefig('ORTHO.png')
-
-  #np.savetxt('RMSE.txt', RMSE)
-  #np.savetxt('ORTHO.txt', ORTHO)
 
 
 
