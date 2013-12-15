@@ -77,7 +77,7 @@ if __name__ == '__main__':
   plt.ylim(0, max(svdY))
   plt.legend(loc='best')
   plt.savefig('reconstruct_fro_{}x{}.pdf'.format(*train.shape))
-  plt.show(block=True)
+  plt.show(block=False)
   ##
   plt.plot(svdX, svdY, label="SVD", color='black', linewidth=2, linestyle='--')
   for label, X, Y in incr_ortho:
@@ -89,4 +89,4 @@ if __name__ == '__main__':
   #plt.ylim(0, max(orthoY))
   plt.legend(loc='best')
   plt.savefig('reconstruct_ortho_{}x{}.pdf'.format(*train.shape))
-  plt.show(block=True)
+  plt.show(block=False)
