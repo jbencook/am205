@@ -7,7 +7,7 @@ from prettyplotlib import plt
 from scipy.io import mmread
 from sklearn.metrics import mean_squared_error
 ##
-from incremental_svd2 import incremental_SVD
+from incremental_svd import incremental_SVD
 
 
 def single_dot(u, svT, x, y):
