@@ -1,13 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.io import mmread, mmwrite
+from scipy.io import mmread
 from sklearn.metrics import mean_squared_error
-import scipy.sparse.linalg as sla
-import pandas as pd
-import os
-import time
-from sys import argv
-from subprocess import call
 
 
 def incremental_SVD(X, K, num, by_row=True):
@@ -51,18 +45,19 @@ def test_perf(X, test, uk, sk, vk):
 
     return prediction
 
-def get_error(K,u,train,test):
+
+def get_error(K, u, train, test):
   RMSE = []
   ORTHO = []
-  U,S,V = incremental_SVD(train, K, u, by_row=True)
-  for i,k in enumerate(K):
-    pred = test_perf(train, test, U[i],S[i],V[i])
+  U, S, V = incremental_SVD(train, K, u, by_row=True)
+  for i, k in enumerate(K):
+    pred = test_perf(train, test, U[i], S[i], V[i])
     ndx = ~np.isnan(pred)
     print 'k = %d' % k
-    RMSE.append(np.sqrt(mean_squared_error(pred[ndx], test[ndx,2])))
+    RMSE.append(np.sqrt(mean_squared_error(pred[ndx], test[ndx, 2])))
     ORTHO.append(np.linalg.norm(U[i].dot(U[i].T) - np.identity(U[i].shape[0])))
 
-  return RMSE,ORTHO
+  return RMSE, ORTHO
 
 if __name__ == '__main__':
   train = np.asarray(mmread('subset_train.mtx').todense())
@@ -70,20 +65,19 @@ if __name__ == '__main__':
 
   num = 0
   for i in xrange(train.shape[0]):
-    if np.all(train[i,:] == 0):
+    if np.all(train[i, :] == 0):
       num += 1
   print 'all zeros', num
 
-  K = range(3,50)
-  nums = [100,500,1000,2000,3000]
+  K = range(3, 50)
+  nums = [100, 500, 1000, 2000, 3000]
 
   RMSE = []
   ORTHO = []
 
-
   for u in nums:
     print 'u = %d' % u
-    rmse,ortho = get_error(K,u,train,test)
+    rmse, ortho = get_error(K, u, train, test)
     RMSE.append(rmse)
     ORTHO.append(ortho)
 
@@ -102,5 +96,5 @@ if __name__ == '__main__':
   plt.xlabel('low-rank approximation (k)')
   plt.ylabel('deviation from orthogonality')
   leg = plt.legend(nums)
-  leg.draw_frame(False)  
+  leg.draw_frame(False)
   fig.savefig('ORTHO.png')
