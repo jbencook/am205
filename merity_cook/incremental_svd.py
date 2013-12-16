@@ -55,7 +55,7 @@ def get_error(K, u, train, test):
     ndx = ~np.isnan(pred)
     print 'k = %d' % k
     RMSE.append(np.sqrt(mean_squared_error(pred[ndx], test[ndx, 2])))
-    ORTHO.append(np.linalg.norm(U[i].dot(U[i].T) - np.identity(U[i].shape[0])))
+    ORTHO.append(np.linalg.norm(U[i].T.dot(U[i]) - np.diag([1] * min(U[i].shape))))
 
   return RMSE, ORTHO
 
