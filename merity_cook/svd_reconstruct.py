@@ -20,7 +20,7 @@ def check_orthogonality(A):
 
 if __name__ == '__main__':
   train = np.matrix(mmread('subset_train.mtx').todense())
-  train = train[0:200, 0:100]
+  train = train[0:3000, 0:1000]
   print 'Using matrix of size {}'.format(train.shape)
 
   print 'Testing SVD'
@@ -31,14 +31,11 @@ if __name__ == '__main__':
   u, s, vT = scipy.linalg.svd(train)
   assert np.allclose(train, u.dot(scipy.linalg.diagsvd(s, u.shape[0], vT.shape[1]).dot(vT)))
   # See the loss in performance as we perform low-rank approximations
-  for k in xrange(1, 100):
+  for k in xrange(1, 101):
     low_s = [s[i] for i in xrange(k)] + (min(u.shape[0], vT.shape[1]) - k) * [0]
     reconstruct = u.dot(scipy.linalg.diagsvd(low_s, u.shape[0], vT.shape[1]).dot(vT))
-    #err = np.sqrt(mean_squared_error(train, reconstruct))
     err = np.linalg.norm(train - reconstruct, 'fro')
     print 'Exact SVD with low-rank approximation {}'.format(k)
-    #print err
-    #print
     svdX.append(k)
     svdY.append(err)
     orthoX.append(k)
@@ -77,9 +74,9 @@ if __name__ == '__main__':
   plt.ylim(0, max(svdY))
   plt.legend(loc='best')
   plt.savefig('reconstruct_fro_{}x{}.pdf'.format(*train.shape))
-  plt.show(block=False)
+  plt.show(block=True)
   ##
-  plt.plot(svdX, svdY, label="SVD", color='black', linewidth=2, linestyle='--')
+  plt.plot(orthoX, orthoY, label="SVD", color='black', linewidth=2, linestyle='--')
   for label, X, Y in incr_ortho:
     plt.plot(X, Y, label=label)
   plt.title('SVD orthogonality error on {}x{} matrix'.format(*train.shape))
@@ -89,4 +86,4 @@ if __name__ == '__main__':
   #plt.ylim(0, max(orthoY))
   plt.legend(loc='best')
   plt.savefig('reconstruct_ortho_{}x{}.pdf'.format(*train.shape))
-  plt.show(block=False)
+  plt.show(block=True)
